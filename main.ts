@@ -23,6 +23,9 @@ input.onButtonPressed(Button.A, function () {
         basic.showString("" + (Hours))
     }
 })
+input.onGesture(Gesture.FreeFall, function () {
+    Turn_alarm_off()
+})
 function Set_Hours () {
     Hours += 1
     if (Hours > 12) {
@@ -35,6 +38,21 @@ function Set_Hours () {
         }
     }
     Add_Oclock()
+}
+function Turn_alarm_off () {
+    while (Is_alarm_playing == true) {
+        if (_1st == false) {
+            _1st = true
+        } else {
+            if (_2nd == false) {
+                _2nd = true
+            } else {
+                if (_3rd == false) {
+                    _3rd = true
+                }
+            }
+        }
+    }
 }
 input.onButtonPressed(Button.AB, function () {
     if (Change_time == false) {
@@ -66,6 +84,9 @@ input.onButtonPressed(Button.B, function () {
         basic.showString("" + (Minutes))
     }
 })
+input.onGesture(Gesture.Shake, function () {
+    Turn_alarm_off()
+})
 function Set_Minutes () {
     Minutes += 1
     if (Minutes >= 60) {
@@ -73,7 +94,11 @@ function Set_Minutes () {
     }
     Add_Oclock()
 }
+let _3rd = false
+let _2nd = false
+let _1st = false
 let Time = ""
+let Is_alarm_playing = false
 let Change_time = false
 let Pm = false
 let Minutes = 0
@@ -83,6 +108,7 @@ Minutes = 0
 Pm = false
 Change_time = false
 let Temperature_Check = true
+Is_alarm_playing = false
 loops.everyInterval(60000, function () {
     if (Change_time == false) {
         Keep_Time()
